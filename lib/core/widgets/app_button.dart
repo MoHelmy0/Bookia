@@ -14,26 +14,28 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      borderRadius: BorderRadius.circular(8.r),
-      color: backgroundColor??AppColors.primaryColor,
-      clipBehavior:Clip.antiAlias ,
-      child: InkWell(
-        onTap: onTap,
-        child: Container(
-          width: double.infinity,
-          padding: EdgeInsets.symmetric(vertical: 19.h),
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            border:backgroundColor==null?null :Border.all(
-              color: Colors.black
+    return SizedBox(
+      width: double.infinity,
+      child: Material(
+        borderRadius: BorderRadius.circular(8.r),
+        color: backgroundColor??AppColors.primaryColor,
+        clipBehavior:Clip.antiAlias ,
+        child: InkWell(
+          onTap: onTap,
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 19.h),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              border:backgroundColor==null?null :Border.all(
+                color: Colors.black
+              ),
+              borderRadius: BorderRadius.circular(8.r)
             ),
-            borderRadius: BorderRadius.circular(8.r)
+            child: Text(title,style: TextStyle(
+              fontSize: 15.sp,
+              color:backgroundColor==null?Colors.white:Colors.black
+            ),),
           ),
-          child: Text(title,style: TextStyle(
-            fontSize: 15.sp,
-            color:backgroundColor==null?Colors.white:Colors.black
-          ),),
         ),
       ),
     );

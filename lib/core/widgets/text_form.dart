@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 class TextForm extends StatelessWidget {
   final String hint;
   final Icon? pass;
-  const TextForm({super.key, required this.hint,  this.pass});
+  final TextInputType KeyType;
+  const TextForm({super.key, required this.hint,  this.pass, required this.KeyType});
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Padding(
+    return Padding(
         padding: const EdgeInsets.all(22.0),
         child: TextFormField(
+          keyboardType: KeyType ,
           decoration: InputDecoration(
             suffixIcon: pass,
             hintText: hint,
@@ -31,8 +32,6 @@ class TextForm extends StatelessWidget {
             ),
           ),
         ),
-      ),
-
-    );
+      );
   }
 }
