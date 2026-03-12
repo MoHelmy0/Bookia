@@ -11,53 +11,91 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 8.h),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 11.h),
-                const BackButton(),
-                SizedBox(height: 29.h),
-                Text(
-                  "Hello! Register to get started",
-                  style: TextStyle(
+            body: SafeArea(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 11.h),
+                        BackButton(),
+                        SizedBox(height: 29.h),
+                  
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "Hello! Register to get started",
+                            style: TextStyle(
+                              fontSize: 30.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 32.h),
 
-                    fontSize: 30.sp,
-                    fontWeight: FontWeight.w400,
+                        TextForm(
+                          hint: "Username",
+                          pass: null,
+                          keyType: TextInputType.name,
+                        ),
+
+                        TextForm(
+                          hint: "Email",
+                          pass: null,
+                          keyType: TextInputType.emailAddress,
+                        ),
+
+                        TextForm(
+                          hint: "Password",
+                          pass: null,
+                          keyType: TextInputType.visiblePassword,
+                        ),
+
+                        TextForm(
+                          hint: "Confirm password",
+                          pass: null,
+                          keyType: TextInputType.visiblePassword,
+                        ),
+
+                        SizedBox(height: 30.h,),
+
+                        AppButton(title: "Register"),
+
+                        SizedBox(height: 50.h,),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Already have an account? ",
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(context, Routes.loginScreen);
+                              },
+                              child: Text(
+                                'Login Now',
+                                style: TextStyle(
+                                  color: const Color(0xFFC9A84C),
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 14.sp,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+
+                      ],
                   ),
                 ),
-                SizedBox(height: 32.h),
-                TextForm(hint: "Username", pass: null, KeyType: TextInputType.text,),
-                TextForm(hint: "Email", pass: null, KeyType: TextInputType.emailAddress,),
-                TextForm(hint: "Password", pass: const Icon(Icons.remove_red_eye_rounded), KeyType: TextInputType.visiblePassword,),
-                TextForm(hint: "Confirm password", pass: const Icon(Icons.remove_red_eye_rounded), KeyType: TextInputType.visiblePassword,),
-  
-                  AppButton(title: "Register"),
-                  
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Already have an account? ",
-                      style: TextStyle(color: const Color(0xFF9E9E9E), fontSize: 14.sp),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        // Navigate to Login Screen
-                      },
-                      child: AppButton(title: 'Register', onTap: (){ Navigator.pushNamed(context, Routes.loginScreen);})
-                      ),
-                  ],
-                ),
-              ],
+              ),
             ),
-          ),
-        ),
-      ),
+
+
     );
   }
 }

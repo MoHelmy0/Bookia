@@ -37,7 +37,7 @@ class ForgetPassword extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 32.h),
-                TextForm(hint: "Enter your email", pass: null,KeyType: TextInputType.emailAddress,),
+                TextForm(hint: "Enter your email", pass: null,keyType: TextInputType.emailAddress,),
                 SizedBox(height: 24.h),
                 AppButton(title: "Send Code", onTap: (){
                   Navigator.pushNamed(context, Routes.otpscreen );
