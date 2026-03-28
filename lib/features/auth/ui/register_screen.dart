@@ -3,7 +3,15 @@ import 'package:booksotre/core/widgets/app_button.dart';
 import 'package:booksotre/core/widgets/text_form.dart';
 import 'package:booksotre/features/auth/widgets/signin_with_g_a.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../cubit/auth_cubit.dart';
+
+
+final TextEditingController emailController=TextEditingController();
+final TextEditingController passwordController=TextEditingController();
+final TextEditingController passwordCController=TextEditingController();
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
@@ -58,12 +66,26 @@ class RegisterScreen extends StatelessWidget {
                           keyType: TextInputType.visiblePassword,
                         ),
 
-                        SizedBox(height: 30.h,),
+                  SizedBox(height: 30.h,),
 
-                        AppButton(title: "Register"),
+
+                  BlocListener<AuthCubit, AuthState>(
+                    listener: (context, state) {
+                      if(state is AuthLoadingState){
+                        showDialog(context: context, builder: (context)=> CircularProgressIndicator());
+                      }else if (state is AuthErrorState){
+                        Navigator.pop(context);
+                        showDialog(context: context, builder: (context)=> AlertDialog(title: Text("Error"),content:  Text("Something went wrong"),));
+                      }else if (state is AuthSuccessState){
+                        Navigator.pushNamedAndRemoveUntil(context, Routes.bottomnav, (route)=> false);
+                      }
+                    },
+                    child: AppButton(title: "Register",onTap: () {
+                      context.read<AuthCubit>().register(email: emailController.text, password: passwordController.text ,password_confirmation:passwordCController.text);
+                    },), ),
 
                         SizedBox(height: 50.h,),
-
+                        // Already have acc
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

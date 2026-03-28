@@ -5,4 +5,5 @@ class Routes {
  static const String otpscreen="otp";
  static const String cnp="create_new_password";
  static const String passwordchanged="password_changed";
+ static const String bottomnav="bottom_nav_bar";
 }

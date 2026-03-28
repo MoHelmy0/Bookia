@@ -1,14 +1,23 @@
 import 'package:booksotre/core/routes/routes.dart';
 import 'package:booksotre/core/widgets/app_button.dart';
 import 'package:booksotre/core/widgets/text_form.dart';
+import 'package:booksotre/features/auth/cubit/auth_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../widgets/signin_with_g_a.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+final TextEditingController emailController=TextEditingController();
+final TextEditingController passwordController=TextEditingController();
+
+class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,11 +67,23 @@ class LoginScreen extends StatelessWidget {
                 ),
 
                 /// Login button
-                AppButton(
-                  title: "Login",
-                  onTap: () {
-                    // TODO: Add login logic
+                BlocListener<AuthCubit, AuthState>(
+                  listener: (context, state) {
+                    if(state is AuthLoadingState){
+                      showDialog(context: context, builder: (context)=> CircularProgressIndicator());
+                    }else if (state is AuthErrorState){
+                      Navigator.pop(context);
+                      showDialog(context: context, builder: (context)=> AlertDialog(title: Text("Error"),content:  Text("Something went wrong"),));
+                    }else if (state is AuthSuccessState){
+                      Navigator.pushNamedAndRemoveUntil(context, Routes.bottomnav, (route)=> false);
+                    }
                   },
+                  child: AppButton(
+                    title: "Login",
+                    onTap: () {
+                      context.read<AuthCubit>().login(email: emailController.text, password: passwordController.text);
+                    },
+                  ),
                 ),
                 SizedBox(height: 34.h),
 
@@ -70,7 +91,8 @@ class LoginScreen extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                      child: Divider(color: const Color(0xFFE0E0E0), thickness: 1),
+                      child: Divider(
+                          color: const Color(0xFFE0E0E0), thickness: 1),
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -84,7 +106,8 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                     Expanded(
-                      child: Divider(color: const Color(0xFFE0E0E0), thickness: 1),
+                      child: Divider(
+                          color: const Color(0xFFE0E0E0), thickness: 1),
                     ),
                   ],
                 ),

@@ -2,6 +2,7 @@
 import 'package:booksotre/core/routes/routes.dart';
 import 'package:booksotre/features/auth/ui/login_screen.dart';
 import 'package:booksotre/features/auth/ui/register_screen.dart';
+import 'package:booksotre/features/bottom_nav_bar/ui/bottom_nav_bar.dart';
 import 'package:booksotre/features/password/ui/create_new_password.dart';
 import 'package:booksotre/features/password/ui/forget_password.dart';
 import 'package:booksotre/features/password/ui/otp.dart';
@@ -25,6 +26,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_)=>CreateNewPassword());
       case Routes.passwordchanged:
         return MaterialPageRoute(builder: (_)=>PasswordChanged());
+      case Routes.bottomnav :
+        return MaterialPageRoute(builder: (_)=>BottomNavBarScreen());
       default:
         return null;
     }
