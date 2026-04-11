@@ -8,6 +8,8 @@ import 'package:booksotre/features/password/ui/forget_password.dart';
 import 'package:booksotre/features/password/ui/otp.dart';
 import 'package:booksotre/features/password/ui/password_changed.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:booksotre/features/auth/cubit/auth_cubit.dart';
 
 class AppRouter {
 
@@ -15,9 +17,15 @@ class AppRouter {
 
     switch(settings.name){
       case Routes.loginScreen:
-        return MaterialPageRoute(builder: (_)=>LoginScreen());
+        return MaterialPageRoute(builder: (_)=>BlocProvider(
+          create: (context) => AuthCubit(),
+          child: const LoginScreen(),
+        ));
       case Routes.registerScreen:
-        return MaterialPageRoute(builder: (_)=>RegisterScreen());
+        return MaterialPageRoute(builder: (_)=>BlocProvider(
+          create: (context) => AuthCubit(),
+          child: const RegisterScreen(),
+        ));
       case Routes.forgetpassword:
         return MaterialPageRoute(builder:(_)=>ForgetPassword());
       case Routes.otpscreen:

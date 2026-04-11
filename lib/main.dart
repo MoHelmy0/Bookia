@@ -4,17 +4,19 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void main()async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   final SharedPreferences prefs = await SharedPreferences.getInstance();
-AppConstants.token=prefs.getString("token");
-  runApp( EasyLocalization(
+  AppConstants.token = prefs.getString("token");
+  runApp(
+    EasyLocalization(
       supportedLocales: [Locale('en'), Locale('ar')],
       path: 'assets/translations',
       fallbackLocale: Locale('en'),
-      child: BookStoreApp()));
+      child: BookStoreApp(),
+    ),
+  );
 }
-
 
 // flutter pub run easy_localization:generate -S assets/translations -O lib/gen/translations -o  locale_keys.g.dart -f keys

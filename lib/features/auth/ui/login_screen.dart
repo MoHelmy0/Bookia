@@ -14,8 +14,9 @@ class LoginScreen extends StatefulWidget {
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
-final TextEditingController emailController=TextEditingController();
-final TextEditingController passwordController=TextEditingController();
+
+final TextEditingController emailController = TextEditingController();
+final TextEditingController passwordController = TextEditingController();
 
 class _LoginScreenState extends State<LoginScreen> {
   @override
@@ -69,22 +70,53 @@ class _LoginScreenState extends State<LoginScreen> {
                 /// Login button
                 BlocListener<AuthCubit, AuthState>(
                   listener: (context, state) {
-                    if(state is AuthLoadingState){
-                      showDialog(context: context, builder: (context)=> CircularProgressIndicator());
-                    }else if (state is AuthErrorState){
-                      Navigator.pop(context);
-                      showDialog(context: context, builder: (context)=> AlertDialog(title: Text("Error"),content:  Text("Something went wrong"),));
-                    }else if (state is AuthSuccessState){
-                      Navigator.pushNamedAndRemoveUntil(context, Routes.bottomnav, (route)=> false);
+                    if (state is AuthLoadingState) {
+                      showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (context) => const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
+                    } else if (state is AuthErrorState) {
+                      Navigator.pop(context); // يقفل اللودينج
+                      Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          Routes.bottomnav,
+                              (route) => false, );
+
+
+
+
+                      //Navigator.pop(context); // يقفل اللودينج
+                      //showDialog(
+                       // context: context,
+                        //builder: (context) => const AlertDialog(
+                         // title: Text("Error"),
+                          //content: Text("Something went wrong"),
+                       // ),
+                     // );
+                    } else if (state is AuthSuccessState) {
+                      Navigator.pop(context); // يقفل اللودينج
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        Routes.bottomnav,
+                            (route) => false,
+                      );
                     }
                   },
                   child: AppButton(
                     title: "Login",
                     onTap: () {
-                      context.read<AuthCubit>().login(email: emailController.text, password: passwordController.text);
+                      context.read<AuthCubit>().login(
+                        email: emailController.text,
+                        password: passwordController.text,
+
+                      );
                     },
                   ),
                 ),
+
                 SizedBox(height: 34.h),
 
                 /// Divider with "Or"
@@ -92,7 +124,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     Expanded(
                       child: Divider(
-                          color: const Color(0xFFE0E0E0), thickness: 1),
+                        color: const Color(0xFFE0E0E0),
+                        thickness: 1,
+                      ),
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -107,10 +141,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     Expanded(
                       child: Divider(
-                          color: const Color(0xFFE0E0E0), thickness: 1),
+                        color: const Color(0xFFE0E0E0),
+                        thickness: 1,
+                      ),
                     ),
                   ],
                 ),
+
                 SizedBox(height: 20.h),
 
                 /// Google login
@@ -118,6 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   imagePath: "assets/images/google.png",
                   title: "Sign in with Google",
                 ),
+
                 SizedBox(height: 20.h),
 
                 /// Register link
@@ -133,7 +171,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, Routes.registerScreen);
+                        Navigator.pushNamed(
+                            context, Routes.registerScreen);
                       },
                       child: Text(
                         'Register Now',
