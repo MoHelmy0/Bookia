@@ -3,6 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/bottom_nav_bar_cubit.dart';
 import '../../home/ui/home_screen.dart';
 
+import 'package:booksotre/features/wishlist/ui/wishlist_screen.dart';
+import 'package:booksotre/features/cart/ui/cart_screen.dart';
+import 'package:booksotre/features/profile/ui/profile_screen.dart';
+
 class BottomNavBarScreen extends StatelessWidget {
   const BottomNavBarScreen({super.key});
 
@@ -17,9 +21,9 @@ class BottomNavBarScreen extends StatelessWidget {
               index: currentIndex,
               children: [
                 const HomeScreen(),
-                const Center(child: Text('Wishlist')), // Placeholder
-                const Center(child: Text('Cart')), // Placeholder
-                const Center(child: Text('Profile')), // Placeholder
+                const WishlistScreen(),
+                const CartScreen(),
+                const ProfileScreen(),
               ],
             ),
             bottomNavigationBar: BottomNavigationBar(

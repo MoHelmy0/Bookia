@@ -4,6 +4,7 @@ import '../cubit/home_cubit.dart';
 import '../cubit/home_state.dart';
 import 'widgets/home_slider_widget.dart';
 import 'widgets/best_seller_grid_widget.dart';
+import 'package:booksotre/core/routes/routes.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -29,7 +30,7 @@ class HomeScreen extends StatelessWidget {
             IconButton(
               icon: const Icon(Icons.search, color: Colors.black, size: 28),
               onPressed: () {
-                // Navigate to search
+                Navigator.pushNamed(context, Routes.searchScreen);
               },
             ),
           ],
